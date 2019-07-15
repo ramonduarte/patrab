@@ -1,0 +1,12 @@
+mvc/pagehandlers/Tratador_pagina1_jsp.class
+mvc/modelo/ParMoedaValor.class
+RequestController.class
+eel418/servlet_de_leitura/AcessoBD.class
+mvc/IFTratadorDePaginas.class
+mvc/pagehandlers/Tratador_pagina2_jsp.class
+eel418/servlet_de_leitura/Leitura.class
+Controller.class
+mvc/Ajax.class
+mvc/RequestController.class
+mvc/modelo/FormatadorDeMoedas.class
+mvc/modelo/ConversorDeCambio.class
