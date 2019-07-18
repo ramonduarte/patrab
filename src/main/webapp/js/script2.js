@@ -1,7 +1,7 @@
 var $ = jQuery;
 
 $( document ).ready(function() {
-    function doThis() {
+    function doGet() {
         return new Promise((resolve, reject) => {
             $.post({
                 url: "/mavenproject2/Ajax",
@@ -141,8 +141,76 @@ $( document ).ready(function() {
         });
     }
 
+    // websocket API
+    let socket = new WebSocket("ws://localhost:8080/mavenproject2/endpoint");
 
-    doThis();
+    socket.onopen = function(e) {
+        socket.send('{"medidores": "sensores"}');
+    };
+
+    socket.onmessage = function(event) {
+        var d = JSON.parse(event.data);
+        try {
+            $('#tabelaMedidores tbody').remove();
+            for (var i = 0; i < d.length; i++) {
+                $('#tabelaMedidores').append("<tbody><tr><td contenteditable='true' id='"
+                                             + i + "_nome_editavel'>"
+                                             + d[i]["serialno_medidores"]
+                                             + "</td><td contenteditable='true' id='"
+                                             + i + "_nome_editavel'>" +  d[i]["nome"]
+                                             + "</td><td>" + d[i]["tabela"]
+                                             + "</td><td>" + '<form >'
+                                             + '<input type="hidden" value="'
+                                             + d[i]["serialno_medidores"]
+                                             + " id=" + i
+                                             + '_serial" name="serialno_medidores" />'
+                                             + '<input type="hidden" value="'
+                                             + d[i]["nome"] + ' id="' + i
+                                             + '_nome" name="nome" />'
+                                             + '<input type="hidden" value="'
+                                             + d[i]["tabela"] + '" id="'
+                                             + i + '" name="tabela" />'
+                                             + '<input type="hidden" value="edit" name="operation" />'
+                                             + '<button class="btn btn-success fas fa-check-circle"></button>'
+                                             + '<script>' + 'document.getElementById("'
+                                             + i + '_serial_editavel").addEventListener("keyup", function() {'
+                                             + 'document.getElementById("' + i
+                                             + '_serial").value = document.getElementById("'
+                                             + i + '_serial_editavel").innerHTML;});'
+                                             + 'document.getElementById("' + i
+                                             + '_nome_editavel").addEventListener("keyup", function() {'
+                                             + 'document.getElementById("' + i
+                                             + '_nome").value = document.getElementById("'
+                                             + i + '_nome_editavel").innerHTML;});'
+                                             + '</script></form></td><td><form >'
+                                             + '<input type="hidden" value="'
+                                             + d[i]["tabela"] + '" name="tabela" />'
+                                             + '<input type="hidden" value="delete" name="operation" />'
+                                             + '<button class="btn btn-danger fas fa-times-circle" ></button>'
+                                             + '</form></td></tr></tbody>');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    socket.onclose = function(event) {
+    if (event.wasClean) {
+        console.log("Conexão fechada.");
+        
+    } else {
+        console.log("Conexão interrompida.");
+        
+    }
+    };
+
+    socket.onerror = function(error) {
+        console.log(error);
+        
+    };
+
+
+    // doGet();
     $("#botaoSubmit").click(function (e) { doAdd(); })
     $(".fa-check-circle").click(function(e) { doEdit(); })
     $(".btn-danger").click(function(e) { doDelete(); })
