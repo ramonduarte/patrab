@@ -11,12 +11,13 @@ public class MainFrame extends javax.swing.JFrame {
     static      String  porta_destino_str;
     static   MainFrame  mainFrame;
     static Transmissor  tx;
+    private static final long serialVersionUID = 1L;
 
     public MainFrame() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
+    // @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -486,15 +487,15 @@ class Transmissor extends Thread{
 //     }//GEN-LAST:event_comboBoxDestinoActionPerformed
 
 //     private void DatahoraInicio_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatahoraInicio_textActionPerformed
-//         // TODO add your handling code here:
+//         // add your handling code here:
 //     }//GEN-LAST:event_DatahoraInicio_textActionPerformed
 
 //     private void deltaTvirtual_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deltaTvirtual_textActionPerformed
-//         // TODO add your handling code here:
+//         // add your handling code here:
 //     }//GEN-LAST:event_deltaTvirtual_textActionPerformed
 
 //     private void deltaTreal_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deltaTreal_textActionPerformed
-//         // TODO add your handling code here:
+//         // add your handling code here:
 //     }//GEN-LAST:event_deltaTreal_textActionPerformed
 
 //     public static void main(String args[]) {

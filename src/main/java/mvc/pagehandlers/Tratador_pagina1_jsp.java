@@ -1,9 +1,9 @@
 package mvc.pagehandlers;
 
-import java.text.DecimalFormat;
+// import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Currency;
+// import java.util.Currency;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

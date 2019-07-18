@@ -3,6 +3,7 @@ package mvc.modelo;
 import java.io.Serializable;
 
 public class ParMoedaValor implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String moeda;
     private double valor;
 

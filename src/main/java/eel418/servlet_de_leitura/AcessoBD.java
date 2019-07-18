@@ -11,7 +11,7 @@ public class AcessoBD {
     ResultSet rs;
     PreparedStatement stmt;
     Connection con;
-    
+
     public String guardar(
             String medidor,
             String temperatura,

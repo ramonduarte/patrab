@@ -1,4 +1,5 @@
-/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/WebSocketClass.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/WebSocketEndpoint.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/Message.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/modelo/FormatadorDeMoedas.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/IFTratadorDePaginas.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/Ajax.java
@@ -11,8 +12,10 @@
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/AquisicaoDTO.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/RequestController.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/modelo/ConversorDeCambio.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/MessageEncoder.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/CEP.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/eel418/servlet_de_leitura/AcessoBD.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/MessageDecoder.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/mainframe/MainFrame.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/graficos.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/InputServlet.java

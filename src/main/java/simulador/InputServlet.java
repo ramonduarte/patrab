@@ -19,7 +19,7 @@ import flanagan.math.FourierTransform;
 import javax.json.JsonArrayBuilder;
 
 public class InputServlet extends HttpServlet {
-
+    private static final long serialVersionUID = 1L;
     static float teta = 0;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

@@ -7,7 +7,7 @@ package mvc;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+// import java.io.PrintWriter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,15 +18,15 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import java.util.Calendar;
-import java.util.Date;
+// import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+// import com.google.gson.Gson;
+// import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
 
 /**
@@ -205,10 +205,8 @@ public class Ajax extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -227,10 +225,8 @@ public class Ajax extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

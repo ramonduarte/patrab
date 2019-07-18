@@ -7,6 +7,7 @@ import javax.json.JsonObject;
 
 public class AquisicaoDTO implements Serializable{
     private String[] correntes;
+    private static final long serialVersionUID = 1L;
 
     public String[] getCorrentes() {
         return correntes;
