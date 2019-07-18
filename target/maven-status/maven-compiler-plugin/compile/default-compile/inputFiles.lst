@@ -1,3 +1,4 @@
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/WebSocketClass.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/modelo/FormatadorDeMoedas.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/IFTratadorDePaginas.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/Ajax.java
@@ -6,8 +7,13 @@
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/eel418/RequestController.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/pagehandlers/Tratador_pagina2_jsp.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/modelo/ParMoedaValor.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/mainframe/AquisicaoDTO.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/AquisicaoDTO.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/RequestController.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/modelo/ConversorDeCambio.java
-/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/MainFrame.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/CEP.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/eel418/servlet_de_leitura/AcessoBD.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/mainframe/MainFrame.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/graficos.java
+/home/ramon/NetBeansProjects/mavenproject2/src/main/java/simulador/InputServlet.java
 /home/ramon/NetBeansProjects/mavenproject2/src/main/java/mvc/pagehandlers/Tratador_pagina1_jsp.java
