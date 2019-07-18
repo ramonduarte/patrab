@@ -7,6 +7,7 @@ public class Message {
     private String from;
     private String to;
     private String content;
+    private String medidores;
 
     /**
      * @return the from
@@ -43,5 +44,17 @@ public class Message {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+    /**
+     * @return the medidores
+     */
+    public String getMedidores() {
+        return medidores;
+    }
+    /**
+     * @param medidores the medidores to set
+     */
+    public void setMedidores(String medidores) {
+        this.medidores = medidores;
     }
 }
