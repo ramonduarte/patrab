@@ -40,10 +40,15 @@ public class WebSocketEndpoint {
         }
     }
 
-    // FIXME: decoder 2019-07-18 02:12:04
     @OnMessage
     public void onMessage(Session session, Message message) throws IOException, EncodeException {
-        System.out.println(message);
+        System.out.println(message.toString() + " " + message.getContent()
+                           + " from " + message.getFrom());
+        try {
+            session.getBasicRemote().sendText("text");
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
         broadcast(message);
     }
 

@@ -59,7 +59,6 @@
             <artifactId>Java-WebSocket</artifactId>
             <version>1.3.0</version>
         </dependency>
-        <!-- FIXME: this needs to be uncommented SOON 2019-07-15 16:43:30 -->
          <dependency>
             <groupId>flanagan</groupId>
             <artifactId>flanaganjar</artifactId>
@@ -67,7 +66,6 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/flanagan/flanaganjar/1.0/flanaganjar-1.0.jar</systemPath>
         </dependency>
-        <!-- FIXME: this needs to be uncommented 2019-07-15 16:44:27 -->
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
