@@ -13,11 +13,14 @@ var trace1 = {
     type: 'scatter',
     name: "umidade (%)"
   };
+
+
+
 $( document ).ready(function() {
     document.getElementById('start').valueAsDate = new Date();
 
       
-      function doThis() {
+      function doGet() {
         return new Promise((resolve, reject) => {
             $.post({
                 url: "/mavenproject2/Ajax",
@@ -55,7 +58,7 @@ $( document ).ready(function() {
             });
         }
         
-        function doThat() {
+        function doEdit() {
             return new Promise((resolve, reject) => {
                 // e.preventDefault();
                 var medidor = $("#selectMedida").children("option:selected")[0].value;
@@ -79,22 +82,38 @@ $( document ).ready(function() {
 
                     $('#tabelaMedidas tbody').remove();
                     $.each(data, function(i, data) {
-                        $('#tabelaMedidas').append("<tbody><tr><td>" + data["medidor"] + "</td><td>" +  + data["temperatura"] + "</td><td>" + data["umidade"] + "</td><td>" + data["datahora"] + "</td><td>" + data["serial"] + "</td></tr></tbody>");
+                        $('#tabelaMedidas').append("<tbody><tr><td>"
+                                                   + data["medidor"]
+                                                   + "</td><td>"
+                                                   + data["temperatura"]
+                                                   + "</td><td>"
+                                                   + data["umidade"]
+                                                   + "</td><td>"
+                                                   + data["datahora"]
+                                                   + "</td><td>"
+                                                   + data["serial"]
+                                                   + "</td></tr></tbody>");
+                    });
 
-                        window.trace1.x.push(Date.parse(data["datahora"]));
-                        window.trace2.x.push(Date.parse(data["datahora"]));
-                        window.trace1.y.push(parseInt(data["temperatura"]));
-                        window.trace2.y.push(parseInt(data["umidade"]));
+                    data.sort(function(a, b){ 
+                        return new Date(a["datahora"]) - new Date(b["datahora"]);
+                    });
+                    console.log(data);
+                    
+                    $.each(data, function(i, data) {
+                        window.trace1.x.push(data["datahora"].slice(0, 19));
+                        window.trace2.x.push(data["datahora"].slice(0, 19));
+                        window.trace1.y.push(parseInt(data["umidade"]));
+                        window.trace2.y.push(parseInt(data["temperatura"]));
                     });
                     Plotly.newPlot('plotly', dataPlotly);
-
                 }
             });
         });
     }
     
-    doThis();
-    $("#botaoLer").click(function (e) { doThat(); });
+    doGet();
+    $("#botaoLer").click(function (e) { doEdit(); });
     $("#selectTabela").click(function (e) {
         if (document.getElementById("selectTabela").checked) {
             $("#tabelaMedidas").hide();
@@ -104,7 +123,7 @@ $( document ).ready(function() {
             $("#plotly").hide();
 
         }
-        doThat(); 
+        doEdit(); 
     });
 
       var dataPlotly = [window.trace1, window.trace2];

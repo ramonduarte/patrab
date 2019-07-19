@@ -145,7 +145,7 @@ $( document ).ready(function() {
     let socket = new WebSocket("ws://localhost:8080/mavenproject2/endpoint");
 
     socket.onopen = function(e) {
-        socket.send('{"medidores": "sensores"}');
+        socket.send('{"medidores": "medidores"}');
     };
 
     socket.onmessage = function(event) {
