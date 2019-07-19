@@ -48,7 +48,9 @@ $( document ).ready(function() {
                     var d = JSON.parse(data);
                     if (!d["success"]) { return; }
                     var i = $("#tabelaMedidores").children().length;
-                    $('#tabelaMedidores').append("<tbody><tr><td contenteditable='true' id='" + i + "_nome_editavel'>" + serial + "</td><td contenteditable='true' id='" + i + "_nome_editavel'>" +  nome +
+                    $('#tabelaMedidores').append("<tbody><tr><td contenteditable='true' id='"
+                                                 + i + "_nome_editavel'>" + serial
+                                                 + "</td><td contenteditable='true' id='" + i + "_nome_editavel'>" +  nome +
                     "</td><td>" + tabela + "</td><td>" + '<form >' +
                     '<input type="hidden" value="' + serial + " id=" + i + '_serial" name="serialno_medidores" />' +
                     '<input type="hidden" value="' + nome + ' id="' + i + '_nome" name="nome" />' +

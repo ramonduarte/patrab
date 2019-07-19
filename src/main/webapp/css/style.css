@@ -99,6 +99,14 @@ input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
+input:checked + .websocket {
+    background-color: #28a745 !important;
+}
+
+input:focus + .websocket {
+    box-shadow: 0 0 1px #28a745 !important;
+}
+
 input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);

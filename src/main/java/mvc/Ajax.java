@@ -22,8 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.google.gson.stream.JsonWriter;
+import com.google.gson.*;
+
 
 /**
  *
@@ -65,33 +70,7 @@ public class Ajax extends HttpServlet {
 
         try {
             if ("post".equals(method)) {
-                // System.out.println(request2.getParameter("medidores"));
                 if ("medidores".equals(request2.getParameter("medidores"))) {
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM public.medidores;");
-
-                    response.setContentType("application/json; charset=UTF-8");
-                    response.setCharacterEncoding("UTF-8");
-
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    JsonWriter writer = new JsonWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-                    writer.beginArray();
-                    while (rs.next()) {
-                        writer.beginObject();
-                        for (int idx = 1; idx <= rsmd.getColumnCount(); idx++) {
-                            writer.name(rsmd.getColumnLabel(idx));
-                            writer.value(rs.getString(idx));
-                        }
-                        System.out.println("next");
-                        writer.endObject();
-                    }
-                    writer.endArray();
-                    response.getOutputStream().flush();
-                    writer.close();
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                } else if ("sensores".equals(request2.getParameter("medidores"))) {
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery("SELECT * FROM public.medidores;");
 
@@ -119,7 +98,6 @@ public class Ajax extends HttpServlet {
                     String medidor = request2.getParameter("medidor");
                     String periodo = request2.getParameter("periodo");
                     String r_datafinal = request2.getParameter("datafinal");
-                    System.out.println(medidor + " " + periodo + " " + r_datafinal);
                     if (r_datafinal == null) {
                         r_datafinal = "2019-05-13T16:54:00.0";
                     }
@@ -128,11 +106,9 @@ public class Ajax extends HttpServlet {
                     }
                     r_datafinal = r_datafinal + "T00:00:00.0";
                     String[] s_datafinal = r_datafinal.split("T");
-                    System.out.println(r_datafinal);
                     System.out.println(s_datafinal[0] + " " + s_datafinal[1] + ":00");
                     Timestamp datafinal = Timestamp.valueOf(s_datafinal[0] + " " + s_datafinal[1]);
                     Timestamp datainicial;
-                    System.out.println("switch block");
 
                     switch (periodo) {
                     case "s":
@@ -152,30 +128,77 @@ public class Ajax extends HttpServlet {
                         break;
                     }
 
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM public." + medidor + " WHERE datahora BETWEEN '"
-                            + datainicial + "00' AND '" + datafinal + "00';");
-                    System.out.println("SELECT * FROM public." + medidor + " WHERE datahora BETWEEN '"
-                    + datainicial + "00' AND '" + datafinal + "00';");
+                    if (medidor.equals("all")) {
+                        Statement stmt2 = con.createStatement();
+                        String query2 = "SELECT tabela FROM public.medidores;";
+                        ResultSet rs2 = stmt2.executeQuery(query2);
+                        ResultSetMetaData rsmd2 = rs2.getMetaData();
 
-                    response.setContentType("application/json; charset=UTF-8");
-                    response.setCharacterEncoding("UTF-8");
-                    
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    JsonWriter writer = new JsonWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-                    writer.beginArray();
-                    while(rs.next()) {
-                        writer.beginObject();
-                        for(int idx=1; idx<=rsmd.getColumnCount(); idx++) {
-                            writer.name(rsmd.getColumnLabel(idx));
-                            writer.value(rs.getString(idx));
+                        response.setContentType("application/json; charset=UTF-8");
+                        response.setCharacterEncoding("UTF-8");
+                        JsonWriter writer = new JsonWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+                        writer.beginArray();
+
+                        while (rs2.next()) {
+                            for (int idx = 1; idx <= rsmd2.getColumnCount(); idx++) {
+                                Statement stmt = con.createStatement();
+                                String query =  "SELECT * FROM public."
+                                                + rs2.getString(idx)
+                                                + " WHERE datahora BETWEEN '"
+                                                + datainicial + "00' AND '"
+                                                + datafinal + "00';";
+                                ResultSet rs = stmt.executeQuery(query);
+                                ResultSetMetaData rsmd = rs.getMetaData();
+                                
+                                while (rs.next()) {
+                                    writer.beginObject();
+                                    for(int i=1; i<=rsmd.getColumnCount(); ++i) {
+                                        writer.name(rsmd.getColumnLabel(i));
+                                        writer.value(rs.getString(i));
+                                        System.out.println(rsmd.getColumnLabel(i) + " " + rs.getString(i));
+                                    }
+                                    writer.endObject();
+                                }
+    
+                                if (stmt != null) {
+                                    stmt.close();
+                                }
+                            }
                         }
-                        System.out.println("next");
-                        writer.endObject();
+
+                        writer.endArray();
+                        response.getOutputStream().flush();
+                        writer.close();
+
+                        if (stmt2 != null) {
+                            stmt2.close();
+                        }
+                    } else {
+                        Statement stmt = con.createStatement();
+                        String query = "SELECT * FROM public." + medidor
+                                       + " WHERE datahora BETWEEN '" + datainicial
+                                       + "00' AND '" + datafinal + "00';";
+                        System.out.println(query);
+                        ResultSet rs = stmt.executeQuery(query);
+    
+                        response.setContentType("application/json; charset=UTF-8");
+                        response.setCharacterEncoding("UTF-8");
+                        
+                        ResultSetMetaData rsmd = rs.getMetaData();
+                        JsonWriter writer = new JsonWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+                        writer.beginArray();
+                        while(rs.next()) {
+                            writer.beginObject();
+                            for(int idx=1; idx<=rsmd.getColumnCount(); idx++) {
+                                writer.name(rsmd.getColumnLabel(idx));
+                                writer.value(rs.getString(idx));
+                            }
+                            writer.endObject();
+                        }
+                        writer.endArray();
+                        response.getOutputStream().flush();
+                        writer.close();
                     }
-                    writer.endArray(); 
-                    response.getOutputStream().flush();
-                    writer.close();
                 }
             }
         } catch (Exception e) {

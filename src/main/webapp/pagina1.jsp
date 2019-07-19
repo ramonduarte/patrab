@@ -20,9 +20,9 @@
 
         <%-- Gráficos D3.js --%>
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <%-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> --%>
         <%-- <script src="js/d3.v5.min.js"></script> --%>
-        <%-- <script src="js/plotly-latest.min.js"></script> --%>
+        <script src="js/plotly-latest.min.js"></script>
 
         <%-- jQuery --%>
         <script src="js/jquery-3.3.1.min.js"></script>
@@ -55,53 +55,57 @@
         <div class="container">
             <form action="/mavenproject2/requestcontroller" method="get">
                 <div class="row">
-                    <div class="form-group col">
-                        <!-- <label for="selectMedida">Medida</label> -->
+                    <div class="form-group col-sm-2">
                         <select class="custom-select" id="selectMedida" name="medidor">
-                                <%  
-                                    Class.forName("org.postgresql.Driver");
-                                    Connection con = DriverManager.getConnection(
-                                            "jdbc:postgresql://localhost:5432/tempumidade", //Database URL
-                                            "tempumidade",                                  //User
-                                            "tempumidade"); 
-                                    Statement stmt = con.createStatement();
-                                    ResultSet rs = stmt.executeQuery("SELECT * FROM public.medidores;");
+                            <option selected value="all">Medidor</option>
+                            <%  
+                                Class.forName("org.postgresql.Driver");
+                                Connection con = DriverManager.getConnection(
+                                        "jdbc:postgresql://localhost:5432/tempumidade", //Database URL
+                                        "tempumidade",                                  //User
+                                        "tempumidade"); 
+                                Statement stmt = con.createStatement();
+                                ResultSet rs = stmt.executeQuery("SELECT * FROM public.medidores;");
 
-                                    while(rs.next()){ 
-                                %>
-                                <option value="<%= rs.getString(3) %>"><%= rs.getString("nome") %></option>
-                                <% 
-                                    }
-                                    if (stmt != null) { stmt.close(); }
-                                %>
+                                while(rs.next()){ 
+                            %>
+                            <option value="<%= rs.getString(3) %>"><%= rs.getString("nome") %></option>
+                            <% 
+                                }
+                                if (stmt != null) { stmt.close(); }
+                            %>
                         </select>
                     </div>
-                    <div class="form-group col">
-                        <!-- <label for="selectMedidor">Período</label> -->
+                    <div class="form-group col-sm-1" style="flex: 0 0 12%;max-width: 12%;">
                         <select class="custom-select" id="selectPeriodo" name="periodo">
-                            <option selected value="">Período</option>
+                            <option selected value="z">Período</option>
                             <option value="d">Diário</option>
                             <option value="s">Semanal</option>
                             <option value="m">Mensal</option>
                             <option value="a">Anual</option>
                         </select>
                     </div>
-                    <div class="form-group col">
-                        <!-- <label for="start">Data final</label> -->
-
+                    <div class="form-group col-sm-3">
                         <input type="date" id="start" name="datafinal"
                             value="2019-05-31" class="custom-select">
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-sm-2"  style="flex: 0 0 13%;max-width: 13% !important;">
                         <label class="switch">
                             <input type="checkbox" name="tabela" id="selectTabela">
                             <span class="slider round"></span>
                         </label>
                         <span class="badge badge-primary" style="vertical-align: sub">Gráfico</span>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-sm-2" align="left" style="flex: 0 0 12%;max-width: 12%;" >
                         <!-- <button id="botaoLer" type="submit" role="button" class="btn btn-primary">LER</button> -->
                         <button id="botaoLer" type="button"role="button" class="btn btn-primary">LER</button>
+                    </div>
+                    <div class="form-group col-sm-2" align="right" style="padding: 0 0 0 30px;">
+                        <label class="switch">
+                            <input type="checkbox" name="ws" id="selectWs">
+                            <span class="slider round websocket"></span>
+                        </label>
+                        <span class="badge badge-success" style="vertical-align: sub">WebSocket</span>
                     </div>
                 </div>
             </form>
@@ -124,26 +128,33 @@
                                 "tempumidade",                                  //User
                                 "tempumidade"); 
                         Statement stmt3 = con3.createStatement();
-                        String med = "medidor001";
-                        if (request.getParameter("medidor") != null) {
-                            med = request.getParameter("medidor");
-                        }
-                        System.out.println(request.getParameter("medidor"));
-                        ResultSet rs3 = stmt3.executeQuery("SELECT * FROM public."
-                        + med + ";");
+                        String query3 = "SELECT tabela FROM public.medidores;";
+                        ResultSet rs3 = stmt3.executeQuery(query3);
+                        ResultSetMetaData rsmd3 = rs3.getMetaData();
 
-                        while(rs3.next()){ 
+                        while (rs3.next()) {
+                            for (int idx = 1; idx <= rsmd3.getColumnCount(); idx++) {
+                                Statement stmt5 = con3.createStatement();
+                                String query5 = "SELECT * FROM public."
+                                                + rs3.getString(idx) + ";";
+                                ResultSet rs5 = stmt5.executeQuery(query5);
+                                ResultSetMetaData rsmd5 = rs5.getMetaData();
+                                
+                                while (rs5.next()) {
                     %>
                     <tbody>
                         <tr>
-                            <td><%= rs3.getString(2) %></td>
-                            <td><%= rs3.getString(3) %></td>
-                            <td><%= rs3.getString(4) %></td>
-                            <td><%= rs3.getString(5) %></td>
-                            <td><%= rs3.getString(6) %></td>
+                            <td><%= rs5.getString(2) %></td>
+                            <td><%= rs5.getString(3) %></td>
+                            <td><%= rs5.getString(4) %></td>
+                            <td><%= rs5.getString(5) %></td>
+                            <td><%= rs5.getString(6) %></td>
                         </tr>
                     </tbody>
                     <% 
+                                }
+                                if (stmt5 != null) { stmt5.close(); }
+                            }
                         }
                         if (stmt3 != null) { stmt3.close(); }
                     %>
@@ -159,7 +170,7 @@
             
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> --%>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="js/script.js"></script>
     </body>

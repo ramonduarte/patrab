@@ -44,11 +44,6 @@ public class RequestController extends HttpServlet {
     // Todos os hamdlers implementam a mesma interface.
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-
-        request.setCharacterEncoding("UTF8");
-        response.setCharacterEncoding("UTF8");
-        // String method = request.getMethod().toLowerCase();
-
         Class.forName("org.postgresql.Driver");
         Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tempumidade", // Database URL
                 "tempumidade", // User

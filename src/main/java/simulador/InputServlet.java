@@ -98,7 +98,7 @@ public class InputServlet extends HttpServlet {
     private double[][] calcularFFT(double[] ydata){
         int NRO_PONTOS_ABCISSA = 4096;
         double[][] data;
-        long inicio = System.currentTimeMillis();
+        // long inicio = System.currentTimeMillis();
         FourierTransform fft = new FourierTransform(ydata);
         fft.setHann();  //--- COMO AFETA O FATOR DE ESCALA?
 //        ft1.setDeltaT(deltaT);  //--- O QUE ISTO?
@@ -147,32 +147,32 @@ public class InputServlet extends HttpServlet {
             
             
             
-        long tempo = System.currentTimeMillis() - inicio;
+        // long tempo = System.currentTimeMillis() - inicio;
 //System.out.println("----- Tempo para 1 iteração: " + tempo + " ms");
         return data;
     }
     
-    private String[] buildTensoes() {
-        String[] vStr = new String[600];
-        double[] vDouble = new double[600];
-        double x = 0D;
-        double deltax = 1D; //2*Math.PI;
-        int k = 1000;
-        double eps = 0.015D;
-        for (int i = 0; i < 600; i++) {
-            x += deltax;
-            vDouble[i] = Math.sin((2D * Math.PI / 600) * x);
-            if (Math.abs(vDouble[i]) < eps) {
-                k = 0;
-            }
-            if (k < 70) {
-                k++;
-                vDouble[i] = 0D;
-            }
-            vStr[i] = Double.toString(vDouble[i]);
-        }
-        return vStr;
-    }
+    // private String[] buildTensoes() {
+    //     String[] vStr = new String[600];
+    //     double[] vDouble = new double[600];
+    //     double x = 0D;
+    //     double deltax = 1D; //2*Math.PI;
+    //     int k = 1000;
+    //     double eps = 0.015D;
+    //     for (int i = 0; i < 600; i++) {
+    //         x += deltax;
+    //         vDouble[i] = Math.sin((2D * Math.PI / 600) * x);
+    //         if (Math.abs(vDouble[i]) < eps) {
+    //             k = 0;
+    //         }
+    //         if (k < 70) {
+    //             k++;
+    //             vDouble[i] = 0D;
+    //         }
+    //         vStr[i] = Double.toString(vDouble[i]);
+    //     }
+    //     return vStr;
+    // }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
